@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>日期表格</title>
+</head>
+<body>
+<div th:each="dt:${datetimeList}">
+<span th:text="${dt.datetime}"></span>
+</div>
+
+</body>
+</html>

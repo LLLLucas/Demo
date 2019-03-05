@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<script src="http://how2j.cn/study/js/jquery/2.0.0/jquery.min.js"></script>
+<link href="http://how2j.cn/study/css/bootstrap/3.3.6/bootstrap.min.css" rel="stylesheet">
+<script src="http://how2j.cn/study/js/bootstrap/3.3.6/bootstrap.min.js"></script>
+<head>
+<meta charset="UTF-8">
+<title>预约表</title>
+
+<script type="text/javascript">
+/* 设置实时时间 */
+function time(){
+var vWeek,vWeek_s,vDay;
+vWeek = ["星期天","星期一","星期二","星期三","星期四","星期五","星期六"];
+var date =  new Date();
+year = date.getFullYear();
+month = date.getMonth() + 1;
+day = date.getDate();
+
+vWeek_s = date.getDay();
+document.getElementById("time").innerHTML = year + "年" + month + "月" + day + "日" + "\t"  + vWeek[vWeek_s] ;
+
+};
+setInterval("time()",1000);
+
+
+
+
+</script>
+
+<style type="text/css" >
+.bc{
+background:#00FF7F
+
+}
+.cbc{
+background: #FFF0F5
+}
+ table{
+table-layout:fixed;
+empty-cells:show;
+border-collapse: collapse;
+margin:0 auto;
+width:80%;
+}
+td{
+height:25px;
+}
+h1,h2,h3{
+font-size:12px;
+margin:0;
+padding:0;
+}
+.table{
+border:1px solid #cad9ea;
+color:#666;
+}
+.table th {
+background-repeat:repeat-x;
+height:30px;
+}
+.table td,.table th{
+border:1px solid #cad9ea;
+padding:0 1em 0;
+}
+.table tr.alter{
+background-color:#f5fafe;
+}  
+  .div{ margin:0 auto; width:400px; height:100px; border:1px solid #F00} 
+</style>
+</head>
+<body>
+<div id="time" style="float:left;color:red"></div></br>
+
+
+<div style="width: 100px;height: 100%;float:right" >
+用户：<span th:if = "${session.user}"  th:text = "${session.user.username}" class="text-success"></span>
+</div></br>
+<div style="width: 100px;height: 100%;color:blue;float:right"   class="btn btn-sm"><a href="logout" >退出登录</a></div>
+<!-- <div><span th:if = "${error}" th:text="${error}"></span></div> -->
+
+
+
+<div style="width: 100px;height: 100%;color:blue;float:right"  class="btn btn-sm">
+<a th:href = "@{myyuyue(userid=${session.user.id})}" >我的预约</a>
+</div>
+
+<center>
+<span th:text="${type.typename}"></span>
+<span th:text="${room.roomname}"></span>的预约情况</center>
+
+<table  align="center" border="1" bordercolor="#a0c6e5" style="border-collapse:collapse;">
+	<tr ><td>时间表</td>
+	<td th:each="dt:${datetimeList}" th:text="${dt.datetime}" style="background:#DCDCDC"></td>
+	</tr>
+	<tr th:each="t:${timeList}">
+	<td th:text="${t.time}" style="background:#DCDCDC"></td>
+<td  th:each="dt:${datetimeList}" th:class="${service.get(t.id,dt.id,room.id)}?'bc can':'cbc can'">
+<div  th:text = "已预约"  th:if="${service.get(t.id,dt.id,room.id)}" >3</div>
+</td>
+	</tr>
+</table>
+
+
+<center><strong>绿色表示已经预约，空白表示可预约</strong></center>
+</br>
+</br>
+</br>
+
+<div style="Float:left "><a th:href="@{yuyueLast(roomid=${roomid},weekid=${weekid})}" class="btn btn-primary">上一周</a></div></br>
+<div style="Float:right"><a th:href="@{yuyueNext(roomid=${roomid},weekid=${weekid})}" class="btn btn-primary">下一周</a></div></br>
+
+<div >
+<form action="yuyue1"  method="post">
+
+	<input type="hidden" th:if = "${session.user}" name = "userid" th:value = "${session.user.id}"/>
+	<input class = "form-control" type="submit" disabled = "disabled"th:unless= "${session.user}"/>
+	<!-- <input class = "form-control" type="submit" th:if = "${session.user}"/>  -->
+<input type="hidden" id="roomid" name="roomid" th:value="${room.id}">
+
+<input type="hidden" id="zhuangtai" name="zhuangtai" value="wait"></br>
+ 预约时间<select name="dateid">
+  <option th:each="dt:${datetimeList}" th:value="${dt.id}" th:text="${dt.datetime}"></option>
+</select>
+预约日期<select  name="timeid">
+  <option th:each="t:${timeList}"  th:value="${t.id}" th:text="${t.time}"></option>
+</select>
+预约原因：
+<textarea name="reason" id="reason"></textarea>
+<!-- <input class = "form-control" type="submit" disabled = "disabled"th:unless= "${session.user}"/> -->
+	<input class="btn btn-info" type="submit" th:if = "${session.user}" value="预约"/>
+</form>
+<span th:text="${success}"></span>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<script src="http://how2j.cn/study/js/jquery/2.0.0/jquery.min.js"></script>
+<link href="http://how2j.cn/study/css/bootstrap/3.3.6/bootstrap.min.css" rel="stylesheet">
+<script src="http://how2j.cn/study/js/bootstrap/3.3.6/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="../../themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="../../themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="../demo.css">
+	<script src="http://how2j.cn/study/jquery.min.js"></script>
+<head>
+<meta charset="UTF-8">
+<title>登录页面</title>
+<style>
+.abc{ float:right; }
+</style>
+</head>
+<body style="text-align:center;">
+<div class="abc" >
+<a href="homePage" class="btn btn-default">返回主页</a>
+<a href = "register" class="btn btn-default">注册</a>
+</div>
+</br>
+</br>
+</br>
+</br>
+<script type="text/javascript">
+function login(){
+	 if(document.form.username.value=="")/*document.表单名.文本域名.value==''"*/
+     {
+         alert("请检查用户名是否为空！");
+         return false;
+     }
+
+}
+
+</script> 
+
+<form action="login_check" method="post" onSubmit="javascript:return login()">
+账户:&nbsp;&nbsp;&nbsp;<input type="text" id="username" name = "username"  placeholder="Username" autofocus="autofocus"/>
+</br></br>
+密码:&nbsp;&nbsp;&nbsp;<input type="password" id="password" placeholder="password" name = "password"/></br></br></br></br>
+
+<input type = "submit" value="登录" class="btn btn-default">&nbsp;&nbsp;&nbsp;
+<input type = "reset" class="btn btn-default">
+</form>
+<a href="adminlogin">管理员登录</a> 
+
+	
+</body>
+</html>

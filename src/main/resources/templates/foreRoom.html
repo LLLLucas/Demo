@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>教室选择</title>
+</head>
+<body>
+
+<div th:each="i:${roomList}"		style="text-align:center">
+<div><a th:href="@{yuyue(roomid=${i.id})}">
+<span th:text="${i.roomname}"></span>
+</a>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>我的预约</title>
+</head>
+<script src="http://how2j.cn/study/js/jquery/2.0.0/jquery.min.js"></script>
+<link href="http://how2j.cn/study/css/bootstrap/3.3.6/bootstrap.min.css" rel="stylesheet">
+<script src="http://how2j.cn/study/js/bootstrap/3.3.6/bootstrap.min.js"></script>
+
+
+<body  style="text-align:center;">
+<span th:text="${user.username}"></span><span>的预约表</span>
+
+ <table class="table table-striped table-bordered table-hover  table-condensed">
+ <tr>
+ 	<td>预约房间</td>
+ 	<td>预约用户</td>
+ 	<td>预约时间</td>
+ 	<td>预约状态</td>
+ 	<td>预约理由</td>
+ 	<td>操作</td>
+ </tr>
+ 
+	<tr th:each="m:${myyuyueList}">
+		<td   th:text="${m.roomname}"></td>
+		<td   th:text="${m.username}"></td>
+		<td   th:text="${m.time}"></td>
+		<td   th:text="${m.zhuangtai}"></td>
+		<td   th:text="${m.reason}"></td>
+		
+		<td><a th:href="@{delete(id=${m.id},userid=${userid})}">取消</a></td>
+		</tr>
+		
+</table> 
+
+
+<div>
+<a th:each="m:${myyuyueList}" th:href = "@{yuyue(roomid=${m.roomid})}"><span  >返回</span></a>
+</div> 
+
+</body>
+</html>

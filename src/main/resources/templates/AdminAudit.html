@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>管理员审核</title>
+<style type="text/css">
+table.imagetable {
+    font-family: verdana,arial,sans-serif;
+    font-size:11px;
+    color:#333333;
+    border-width: 1px;
+    border-color: #999999;
+    border-collapse: collapse;
+
+}
+table.imagetable th {
+    background:#b5cfd2 url('cell-blue.jpg');
+    border-width: 1px;
+    padding: 8px;
+    border-style: solid;
+    border-color: #999999;
+}
+table.imagetable td {
+    background:#dcddc0 url('cell-grey.jpg');
+    border-width: 1px;
+    padding: 8px;
+    border-style: solid;
+    border-color: #999999;
+}
+
+</style>
+</head>
+<body>
+<!-- 显示时间 -->
+<script language = javascript>
+	  setInterval("test()",1000);
+           function test () 
+          {
+        	var a= new Date();
+        	document.getElementById("time").innerHTML= a;
+           }
+	  </script>
+	     <h2 id = "time">
+	    </h2>
+
+ <table class="imagetable" >
+ <tr>
+ 	<td>预约房间</td>
+ 	<td>预约用户</td>
+ 	<td>预约时间</td>
+ 	<td>预约状态</td>
+ 	<td>预约理由</td>
+ 	<td>操作</td>
+ 
+ </tr>
+ 
+	<tr th:each="m:${yuyueList}">
+		<td   th:text="${m.roomname}"></td>
+		<td   th:text="${m.username}"></td>
+		<td   th:text="${m.time}"></td>
+		<td   th:text="${m.zhuangtai}" style="color:red"></td>
+		<td   th:text="${m.reason}"></td>
+		<td><a th:href="@{AdminPost(id=${m.id})}">通过</a>
+		<a th:href="@{AdminRefuse(id=${m.id})}">拒绝</a></td>
+		</tr>
+
+</table>
+<a th:href="AdminPosted">已经申请通过</a> 
+<a th:href="AllYuyue">所有预约通过</a> 
+<a th:href="ToPost">待审核通过</a> 
+<a href="login">返回登录页面</a>
+
+
+</body>
+</html>

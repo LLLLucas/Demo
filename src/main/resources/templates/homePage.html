@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>homePage</title>
+</head>
+<body>
+<div float="right">
+<a href = "login">登录</a>
+</div>
+
+
+<center><div>教学楼分布菜单</div>
+
+<div th:each="c:${typeList}">
+<a th:href = "@{foreRoom(typeid=${c.id})}"><span  th:text = "${c.typename}"></span></a>
+</div></center>
+
+
+
+</body>
+</html>
